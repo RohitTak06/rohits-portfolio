@@ -10,6 +10,7 @@ import { generalApiLimiter } from './middleware/rateLimiter.js';
 dotenv.config();
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Security Headers with Helmet
 app.use(
