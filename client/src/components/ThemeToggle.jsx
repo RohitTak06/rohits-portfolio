@@ -19,7 +19,7 @@ export const ThemeToggle = ({ theme, toggleTheme, className = '' }) => {
           }`}
         />
         <Moon
-          className={`w-5 h-5 text-indigo-400 absolute inset-0 transform transition-all duration-500 ${
+          className={`w-5 h-5 text-primary absolute inset-0 transform transition-all duration-500 ${
             isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
           }`}
         />

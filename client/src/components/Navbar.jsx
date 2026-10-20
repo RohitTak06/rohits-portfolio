@@ -39,16 +39,15 @@ export const Navbar = ({ theme, toggleTheme, onOpenResumeModal }) => {
             href="#home"
             className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-accent flex items-center justify-center text-white font-extrabold text-lg shadow-md shadow-primary/25 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground font-extrabold text-lg shadow-md shadow-primary/15 group-hover:scale-105 transition-transform">
               RT
             </div>
             <div className="flex flex-col">
               <span className="font-heading font-bold text-base tracking-tight group-hover:text-primary transition-colors flex items-center gap-1.5">
                 Rohit Tak
-                <IconSpaceCat size={18} className="opacity-80 group-hover:opacity-100 transition-opacity" />
               </span>
               <span className="text-[10px] text-muted-foreground font-mono -mt-1">
-                Full-Stack MERN
+                CS Student & Developer
               </span>
             </div>
           </a>
@@ -73,7 +72,7 @@ export const Navbar = ({ theme, toggleTheme, onOpenResumeModal }) => {
             <button
               type="button"
               onClick={onOpenResumeModal}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-gradient-to-r from-primary to-accent text-white shadow-md shadow-primary/25 hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] transition-all"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-primary text-primary-foreground shadow-md shadow-primary/15 hover:brightness-105 hover:scale-[1.02] active:scale-[0.98] transition-all"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Resume</span>

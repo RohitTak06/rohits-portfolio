@@ -53,13 +53,13 @@ export const ResumeDownloadModal = ({ isOpen, onClose }) => {
               Download Rohit Tak's Resume
             </h3>
             <p className="text-xs text-muted-foreground">
-              Official verified credentials • Updated for 2026
+              Resume provided by Rohit Tak
             </p>
           </div>
         </div>
 
         <p className="text-sm text-muted-foreground mb-6">
-          Choose your preferred format. All downloads are generated and served securely through the Express REST API backend.
+          Choose a format to view or download the resume.
         </p>
 
         <div className="space-y-4 mb-6">
@@ -72,7 +72,6 @@ export const ResumeDownloadModal = ({ isOpen, onClose }) => {
                 </span>
                 <span className="font-semibold text-sm">Standard Adobe PDF Document</span>
               </div>
-              <span className="text-xs text-muted-foreground">5.4 KB</span>
             </div>
             <p className="text-xs text-muted-foreground mb-3">
               Best for printing, ATS submission, and immediate mobile or desktop viewing.
@@ -107,7 +106,6 @@ export const ResumeDownloadModal = ({ isOpen, onClose }) => {
                 </span>
                 <span className="font-semibold text-sm">Microsoft Word Document</span>
               </div>
-              <span className="text-xs text-muted-foreground">11.3 KB</span>
             </div>
             <p className="text-xs text-muted-foreground mb-3">
               Editable format suitable for recruiters and HR management platforms.
@@ -126,9 +124,9 @@ export const ResumeDownloadModal = ({ isOpen, onClose }) => {
         <div className="flex items-center justify-between text-xs text-muted-foreground pt-3 border-t border-border">
           <span className="flex items-center gap-1">
             <CheckCircle className="w-3.5 h-3.5 text-emerald-500" />
-            Backend API Verified
+            PDF and Word formats
           </span>
-          <span>College Assignment Compliant</span>
+          <span>Resume</span>
         </div>
       </div>
     </div>

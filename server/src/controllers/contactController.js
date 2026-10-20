@@ -31,7 +31,8 @@ export const submitContactMessage = async (req, res, next) => {
       console.warn('[Contact] Submission attempted while MongoDB is disconnected.');
       return res.status(503).json({
         success: false,
-        message: 'Database service is currently unreachable. Please email directly at rohittak006@gmail.com while we restore database connectivity.',
+        message:
+          'MongoDB is unavailable. Start the MongoDB service or configure MONGODB_URI, then try again. You can also email directly at rohittak006@gmail.com.',
       });
     }
 

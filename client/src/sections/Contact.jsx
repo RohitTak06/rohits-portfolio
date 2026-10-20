@@ -119,7 +119,7 @@ export const Contact = () => {
             Let's <span className="gradient-text">Connect</span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Interested in full-stack collaboration, internship opportunities, or discussing my projects? Send a real message persisted to MongoDB.
+            Want to discuss a project, software, or a possible collaboration? Send me a message through the contact form.
           </p>
         </div>
 
@@ -266,7 +266,7 @@ export const Contact = () => {
                     disabled={status.submitting}
                     placeholder="e.g. Priyanshu Sharma"
                     className={`w-full px-4 py-2.5 rounded-xl bg-secondary/60 border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all ${
-                      fieldErrors.name ? 'border-destructive ring-1 ring-destructive' : 'border-border'
+                      fieldErrors.name ? 'border-destructive ring-1 ring-destructive' : 'border-control'
                     }`}
                   />
                   {fieldErrors.name && (
@@ -289,7 +289,7 @@ export const Contact = () => {
                     disabled={status.submitting}
                     placeholder="e.g. recruiter@company.com"
                     className={`w-full px-4 py-2.5 rounded-xl bg-secondary/60 border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all ${
-                      fieldErrors.email ? 'border-destructive ring-1 ring-destructive' : 'border-border'
+                      fieldErrors.email ? 'border-destructive ring-1 ring-destructive' : 'border-control'
                     }`}
                   />
                   {fieldErrors.email && (
@@ -310,9 +310,9 @@ export const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     disabled={status.submitting}
-                    placeholder="Hello Rohit, we reviewed your Muqabla and Elefin projects and would like to speak regarding an opportunity..."
+                    placeholder="Hi Rohit, I would like to talk about your projects..."
                     className={`w-full px-4 py-2.5 rounded-xl bg-secondary/60 border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all resize-none ${
-                      fieldErrors.message ? 'border-destructive ring-1 ring-destructive' : 'border-border'
+                      fieldErrors.message ? 'border-destructive ring-1 ring-destructive' : 'border-control'
                     }`}
                   />
                   {fieldErrors.message && (
@@ -324,7 +324,7 @@ export const Contact = () => {
                 <button
                   type="submit"
                   disabled={status.submitting}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold bg-primary text-primary-foreground shadow-lg shadow-primary/15 hover:brightness-105 hover:opacity-95 active:scale-[0.99] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {status.submitting ? (
                     <>

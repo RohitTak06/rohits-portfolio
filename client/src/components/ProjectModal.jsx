@@ -93,7 +93,7 @@ export const ProjectModal = ({ project, onClose }) => {
         {/* Technology Stack */}
         <div className="mb-8">
           <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
-            Verified Technology Stack
+            Technology Stack
           </h3>
           <div className="flex flex-wrap gap-2">
             {project.techStack.map((tech) => (

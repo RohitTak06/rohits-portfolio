@@ -19,7 +19,7 @@ export const Footer = () => {
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-accent flex items-center justify-center text-white font-bold text-sm shadow">
+              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm shadow">
                 RT
               </div>
               <span className="font-heading font-bold text-lg tracking-tight flex items-center gap-1.5">
@@ -28,7 +28,7 @@ export const Footer = () => {
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-              Full-Stack MERN developer & Computer Science undergraduate at JK Lakshmipat University, Jaipur. Building scalable web software, financial quantitative analytics, and privacy-preserving systems.
+              Computer Science undergraduate at JK Lakshmipat University, Jaipur. Building practical software across web development and computer vision.
             </p>
           </div>
 

@@ -1,32 +1,32 @@
 import React from 'react';
-import { GraduationCap, MapPin, Award, BookOpen, Sparkles, Code2, Brain, Database, ArrowRight } from 'lucide-react';
-import { IconSpaceBook, IconSpaceCat, IconSpaceGlobe } from '../components/AnimatedIcon';
+import { GraduationCap, MapPin, Award, CalendarDays, Sparkles, Code2, Brain, Database } from 'lucide-react';
+import { IconSpaceBook, IconSpaceCat } from '../components/AnimatedIcon';
 
 const academicStats = [
-  { label: 'Degree', value: 'B.Tech CSE', subtext: 'Semester 5 (2024 - 2028)', icon: GraduationCap },
-  { label: 'University CGPA', value: '6.75 / 10', subtext: 'JKLU Jaipur', icon: Award },
-  { label: 'Class XII (CBSE)', value: '80.3%', subtext: 'Senior Secondary', icon: BookOpen },
-  { label: 'Current Base', value: 'Jaipur, India', subtext: 'Open to relocation', icon: MapPin },
+  { label: 'Degree', value: 'B.Tech CSE', subtext: 'Computer Science', icon: GraduationCap },
+  { label: 'CGPA', value: '6.75 / 10', subtext: 'JK Lakshmipat University', icon: Award },
+  { label: 'Graduation', value: '2028', subtext: 'Started in 2024', icon: CalendarDays },
+  { label: 'Based in', value: 'Jaipur', subtext: 'Rajasthan, India', icon: MapPin },
 ];
 
 const technicalInterests = [
   {
-    name: 'Full-Stack MERN Architecture',
-    desc: 'End-to-end component modularity, REST APIs, and performant state pipelines.',
+    name: 'Full-Stack Development',
+    desc: 'Building complete web applications, from user interfaces to backend data.',
     icon: Code2,
-    color: 'from-blue-500/20 to-indigo-500/20 text-blue-500',
+    color: 'from-primary/15 to-primary/5 text-primary',
   },
   {
-    name: 'FinTech Quantitative Analytics',
-    desc: 'Sharpe ratio, volatility calculations, and machine learning forward forecasts.',
+    name: 'Computer Vision',
+    desc: 'Exploring practical vision systems with OpenCV and MediaPipe.',
     icon: Brain,
-    color: 'from-emerald-500/20 to-teal-500/20 text-emerald-500',
+    color: 'from-primary/15 to-primary/5 text-primary',
   },
   {
-    name: 'Relational & Document Databases',
-    desc: 'Prisma ORM type safety with PostgreSQL and high-throughput MongoDB collections.',
+    name: 'Data & System Design',
+    desc: 'Interested in data visualization, generative AI, and designing useful systems.',
     icon: Database,
-    color: 'from-purple-500/20 to-pink-500/20 text-purple-500',
+    color: 'from-primary/15 to-primary/5 text-primary',
   },
 ];
 
@@ -50,7 +50,7 @@ export const About = () => {
 
         {/* Grid Container */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left Column: Visual Avatar & Verified Badge */}
+          {/* Left Column: Visual Avatar */}
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="relative group">
               {/* Outer Glow */}
@@ -59,7 +59,7 @@ export const About = () => {
               {/* Graphic Card */}
               <div className="relative w-72 sm:w-80 h-80 sm:h-96 rounded-3xl glass-card flex flex-col items-center justify-center p-8 text-center border border-border overflow-hidden">
                 {/* Abstract Developer Monogram Avatar */}
-                <div className="w-28 h-28 rounded-2xl bg-gradient-to-tr from-primary via-indigo-600 to-accent flex items-center justify-center text-white font-extrabold text-4xl shadow-xl shadow-primary/30 mb-6 group-hover:scale-105 transition-transform duration-300">
+                <div className="w-28 h-28 rounded-2xl bg-gradient-to-tr from-primary via-secondary to-accent flex items-center justify-center text-primary-foreground font-extrabold text-4xl shadow-xl shadow-primary/20 mb-6 group-hover:scale-105 transition-transform duration-300">
                   RT
                 </div>
 
@@ -91,14 +91,14 @@ export const About = () => {
                 <span>Engineering Mindset & Growth</span>
               </h3>
               <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
-                I am a 3rd-year Computer Science and Engineering undergraduate at{' '}
+                I am a Computer Science undergraduate at{' '}
                 <strong className="text-foreground font-semibold">
                   JK Lakshmipat University (JKLU), Jaipur
                 </strong>
-                . My engineering journey centers on building real software systems that address genuine organizational and quantitative challenges.
+                , pursuing my B.Tech from 2024 to 2028. I enjoy turning practical problems into clear, useful software.
               </p>
               <p className="text-sm sm:text-base text-foreground/80 leading-relaxed">
-                During my summer internship at <strong className="text-foreground font-semibold">Elefin Money</strong>, I engineered quantitative analytics engines for mutual fund risk profiling and return forecasting using machine learning. My projects span sports management platforms (<strong className="text-foreground font-semibold">Muqabla</strong>), privacy-focused campus identity discovery (<strong className="text-foreground font-semibold">JKLU Profile Finder</strong>), and modern responsive frontend interfaces.
+                My projects include <strong className="text-foreground font-semibold">SAHARA</strong>, an emergency healthcare support platform; <strong className="text-foreground font-semibold">Muqabla</strong>, a sports management application; and a real-time <strong className="text-foreground font-semibold">driver drowsiness detection</strong> system.
               </p>
             </div>
 

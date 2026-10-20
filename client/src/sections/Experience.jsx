@@ -27,20 +27,20 @@ export const Experience = () => {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary mb-3 border border-primary/20">
             <IconSpaceClock size={16} />
-            <span>Academic & Professional Path</span>
+            <span>My Journey</span>
           </div>
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            Education & <span className="gradient-text">Experience</span>
+            Education & <span className="gradient-text">Leadership</span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Chronological milestones representing university engineering studies, FinTech internship experience, and student event leadership.
+            My computer science studies and student event team roles.
           </p>
         </div>
 
         {/* Vertical Timeline Container */}
         <div className="relative max-w-3xl mx-auto">
           {/* Central Connecting Line */}
-          <div className="absolute left-4 sm:left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-primary via-accent to-blue-500/20 sm:-translate-x-1/2" />
+          <div className="absolute left-4 sm:left-1/2 top-4 bottom-4 w-0.5 bg-gradient-to-b from-primary via-accent to-transparent sm:-translate-x-1/2" />
 
           {/* Timeline Items */}
           <div className="space-y-12">
@@ -61,7 +61,7 @@ export const Experience = () => {
                   </div>
 
                   {/* Content Card */}
-                  <div className="ml-12 sm:ml-0 sm:w-1/2 sm:px-8 w-full">
+                  <div className="ml-12 w-[calc(100%-3rem)] min-w-0 sm:ml-0 sm:w-1/2 sm:px-8">
                     <div className="glass-card p-6 rounded-2xl border border-border hover:border-primary/40 transition-all duration-300">
                       {/* Header with Type & Period */}
                       <div className="flex flex-wrap items-center justify-between gap-2 mb-2">

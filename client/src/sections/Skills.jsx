@@ -16,9 +16,9 @@ const iconMap = {
   frontend: Layout,
   backend: Server,
   languages: Code,
-  databases: Database,
-  aiml: Brain,
-  tools: Wrench,
+  data: Database,
+  interests: Brain,
+  creative: Wrench,
 };
 
 export const Skills = () => {
@@ -42,7 +42,7 @@ export const Skills = () => {
             Skills & <span className="gradient-text">Technologies</span>
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
-            Technologies, frameworks, and engineering tools proven across my GitHub repositories and full-stack coursework.
+            Technical, data, and creative skills drawn from my resume.
           </p>
         </div>
 
@@ -114,7 +114,7 @@ export const Skills = () => {
                             {skill.name}
                           </span>
                           <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-primary/10 text-primary font-semibold">
-                            Verified
+                            Resume
                           </span>
                         </div>
                         <p className="text-[11px] text-muted-foreground leading-snug">
@@ -128,7 +128,7 @@ export const Skills = () => {
                 {/* Footer badge */}
                 <div className="pt-4 mt-4 border-t border-border/60 flex items-center justify-between text-[11px] text-muted-foreground">
                   <span>{group.skills.length} core technologies</span>
-                  <span className="text-primary font-medium">Production Tested</span>
+                  <span className="text-primary font-medium">Resume-listed</span>
                 </div>
               </div>
             );

@@ -1,24 +1,21 @@
-# 🚀 Rohit Tak — Professional MERN Stack Developer Portfolio
+# Rohit Tak — Computer Science Student & Software Developer
 
-[![MERN Stack](https://img.shields.io/badge/Stack-MERN-6366f1.svg)](https://react.dev/)
 [![React 18](https://img.shields.io/badge/Frontend-React%2018%20%2B%20Vite-61dafb.svg)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Backend-Express.js%20%2B%20Node.js-339933.svg)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB%20%2B%20Mongoose-47A248.svg)](https://www.mongodb.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38bdf8.svg)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A production-grade, full-stack personal developer portfolio built for **Rohit Tak**, undergraduate Computer Science & Engineering student at **JK Lakshmipat University, Jaipur**. 
+A full-stack personal portfolio for **Rohit Tak**, a Computer Science student at **JK Lakshmipat University, Jaipur**.
 
-The portfolio presents verified GitHub repositories, quantitative FinTech internship algorithms, zero-trust campus identity systems, and an interactive Express/MongoDB backend providing authenticated contact storage and binary resume downloads.
+The portfolio highlights projects in emergency healthcare support, sports management, and computer vision. Its Express/MongoDB backend handles contact submissions and serves the PDF and Word resume files.
 
----
-
-## 📌 Verified Profile & Quick Links
+## Profile & Quick Links
 
 - **Developer:** Rohit Tak
 - **Institution:** JK Lakshmipat University (JKLU), Jaipur
-- **Degree:** B.Tech in Computer Science and Engineering (Dec 2024 – 2028 | Semester 5)
-- **Academic Standing:** CGPA: 6.75 / 10 | Senior Secondary (Class XII): 80.3%
+- **Degree:** B.Tech in Computer Science (2024–2028)
+- **CGPA:** 6.75 / 10
 - **Location:** Jaipur, Rajasthan, India
 - **Email:** [rohittak006@gmail.com](mailto:rohittak006@gmail.com)
 - **Phone:** [+91-7568098052](tel:+917568098052)
@@ -32,9 +29,9 @@ The portfolio presents verified GitHub repositories, quantitative FinTech intern
 ### 🖥️ Frontend (`/client`)
 - **Modern Design System:** Built with Tailwind CSS, HSL design tokens, glassmorphism, responsive typography, and glowing gradients.
 - **Theme Toggle:** Fully functional, persistent Dark and Light mode (defaults to dark mode with zero flash of unstyled content).
-- **Hero & Typewriter:** Dynamic typewriter rotating between verified roles (*Full-Stack MERN Developer*, *AI/ML & FinTech Enthusiast*, *Next.js & TypeScript Engineer*, *CS Student @ JKLU*).
+- **Animated Hero:** GSAP line-hover typography, a scroll-responsive 3D fluid-cube backdrop, and links to projects and resume downloads.
 - **IconSpace Integration:** Dynamic animated SVG icons derived and inspired by [IconSpace](https://iconspace.dev/) with `currentColor` inheritance and micro-interactions.
-- **Interactive Project Showcase:** Multi-category filtering (*All*, *Full Stack*, *FinTech & AI/ML*, *Systems & Security*, *Frontend*) with detailed modal inspection showing the exact problem solved, architectural features, and verified GitHub links.
+- **Interactive Project Showcase:** Filter and inspect three resume-aligned projects, with descriptions, technology badges, and source links.
 - **Interactive Contact Form:** Real-time client-side validation, loading spinners, honeypot anti-spam protection, and celebratory confetti upon confirmed database persistence.
 - **Dual Resume Modal:** Modal allowing instant download of both official PDF and editable Word (DOCX) resumes directly via the Express API.
 - **Fully Responsive & Accessible:** Fluid scaling across mobile, tablet, and desktop viewports with keyboard navigation support and `prefers-reduced-motion` compliance.
@@ -52,19 +49,15 @@ The portfolio presents verified GitHub repositories, quantitative FinTech intern
 
 ---
 
-## 🏆 Featured GitHub Projects
+## Featured Projects
 
-All projects displayed in this portfolio represent genuine, code-inspected repositories from [RohitTak06](https://github.com/rohitTak06):
+The project links below are the repositories listed with these projects in the resume. No live-demo URLs were supplied, so the portfolio links to source repositories instead.
 
 | Project | Tech Stack | Category | Problem Solved | GitHub Link |
 |---|---|---|---|---|
-| **Muqabla** | Next.js, TypeScript, Prisma, PostgreSQL, Tailwind | Full Stack | Solves tournament bracket chaos and manual match scorekeeping with an automated admin dashboard. | [Muqabla Repo](https://github.com/RohitTak06/Muqabla) |
-| **Elefin Money** | React, FastAPI, Python, Scikit-Learn, Docker | FinTech & AI/ML | Provides retail investors with quantitative portfolio health metrics (Sharpe ratio, Beta vs. Nifty 50) and ML forward wealth forecasts. | [Elefin Repo](https://github.com/RohitTak06/Elefin-Portfolio-Analyzer-MUTUTAL-FUND-) |
-| **JKLU Profile Finder** | Next.js, FastAPI, Redis, PostgreSQL, Docker | Systems & Security | Zero-trust campus identity discovery utilizing single-photo consent matching, token revocation, and sliding rate limits. | [Profile Finder Repo](https://github.com/RohitTak06/jklu-profile-finder) |
-| **YouTube Mockup** | HTML5, Modern CSS3 Grid & Flexbox | Frontend | Proves raw CSS layout mastery, multi-column video grids, and responsive sidebar navigation. | [YT Mockup Repo](https://github.com/RohitTak06/YT-Mockup) |
-| **Wallpapers** | HTML5, CSS3 Grid | Frontend | Lightweight, responsive image gallery demonstrating adaptive CSS grid techniques. | [Wallpapers Repo](https://github.com/RohitTak06/Wallpapers) |
-
-*Full audit and selection rationale available in [`docs/project-audit.md`](docs/project-audit.md).*
+| **SAHARA v2.0** | Next.js, React, Tailwind CSS, Prisma, PostgreSQL, Leaflet | Full Stack | Centralizes access to hospitals, ambulance services, and blood banks. | [SAHARA Repository](https://github.com/Tejender09/SAHARA-v2.0) |
+| **Muqabla** | Next.js, TypeScript, Prisma, PostgreSQL, Tailwind CSS | Full Stack | Supports sports event and participant management with an admin dashboard. | [Muqabla Repository](https://github.com/RohitTak06/Muqabla) |
+| **Driver Drowsiness Detection** | Python, OpenCV, MediaPipe | AI & Computer Vision | Monitors driver alertness from a webcam feed using eye and mouth aspect ratios. | [Driver Drowsiness Repository](https://github.com/Riyachauhan18/driver-drowsiness-detection) |
 
 ---
 
@@ -307,7 +300,7 @@ npm test
 ```bash
 npm run build
 ```
-*(Transpiles and bundles client assets via Vite with zero warnings or errors).*
+*(Builds the React/Vite client. The Three.js background can produce a large-chunk advisory.)*
 
 ---
 
@@ -348,9 +341,8 @@ npm run build
 
 ## 📜 Academic Integrity & Attribution
 
-This project fulfills all mandatory criteria of the **Semester 5 Full-Stack MERN Portfolio Assignment** at **JK Lakshmipat University, Jaipur**. 
-- All featured projects link to original, authenticated codebases authored by Rohit Tak.
-- No fabricated stars, statistics, awards, or fake testimonials have been introduced.
+Portfolio project descriptions and personal details are aligned with the supplied resume. Project repository links point to the URLs listed in that resume.
+- No fabricated stars, statistics, or testimonials have been introduced.
 - Custom iconography integrates principles and SVG assets from [IconSpace](https://iconspace.dev/) with full attribution.
 
 ---
