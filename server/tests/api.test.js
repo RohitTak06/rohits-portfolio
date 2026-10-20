@@ -43,6 +43,51 @@ describe('Rohit Tak Portfolio API Test Suite', () => {
     });
   });
 
+  describe('Contact Endpoint: OPTIONS /api/contact', () => {
+    it('should preflight and accept contact requests from the production frontend origin', async () => {
+      const originalNodeEnv = process.env.NODE_ENV;
+      process.env.NODE_ENV = 'production';
+
+      try {
+        const preflight = await request(app)
+          .options('/api/contact')
+          .set('Origin', 'https://rohits-portfolio-tyg3.vercel.app')
+          .set('Access-Control-Request-Method', 'POST')
+          .set('Access-Control-Request-Headers', 'content-type');
+
+        assert.strictEqual(preflight.status, 204);
+        assert.strictEqual(
+          preflight.headers['access-control-allow-origin'],
+          'https://rohits-portfolio-tyg3.vercel.app'
+        );
+        assert.match(preflight.headers['access-control-allow-methods'], /POST/);
+        assert.match(preflight.headers['access-control-allow-methods'], /OPTIONS/);
+        assert.match(preflight.headers['access-control-allow-headers'], /content-type/i);
+
+        const submission = await request(app)
+          .post('/api/contact')
+          .set('Origin', 'https://rohits-portfolio-tyg3.vercel.app')
+          .send({
+            name: 'Alex Johnson',
+            email: 'alex.johnson@example.com',
+            message: 'Hello Rohit, I would like to discuss a project opportunity.',
+          });
+
+        assert.strictEqual(submission.status, 201);
+        assert.strictEqual(
+          submission.headers['access-control-allow-origin'],
+          'https://rohits-portfolio-tyg3.vercel.app'
+        );
+      } finally {
+        if (originalNodeEnv === undefined) {
+          delete process.env.NODE_ENV;
+        } else {
+          process.env.NODE_ENV = originalNodeEnv;
+        }
+      }
+    });
+  });
+
   describe('Contact Endpoint: POST /api/contact', () => {
     it('should successfully validate, store submission in MongoDB, and return 201', async () => {
       const payload = {
