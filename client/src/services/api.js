@@ -1,4 +1,11 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const configuredApiUrl =
+  import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || '';
+const normalizedApiUrl = configuredApiUrl.trim().replace(/\/+$/, '');
+const API_BASE = normalizedApiUrl
+  ? /(?:\/api)+$/i.test(normalizedApiUrl)
+    ? normalizedApiUrl.replace(/(?:\/api)+$/i, '/api')
+    : `${normalizedApiUrl}/api`
+  : '/api';
 
 /**
  * Health check query.
