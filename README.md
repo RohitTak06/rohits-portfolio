@@ -15,10 +15,6 @@ The portfolio highlights projects in emergency healthcare support, sports manage
 - **Developer:** Rohit Tak
 - **Institution:** JK Lakshmipat University (JKLU), Jaipur
 - **Degree:** B.Tech in Computer Science (2024–2028)
-- **CGPA:** 6.75 / 10
-- **Location:** Jaipur, Rajasthan, India
-- **Email:** [rohittak006@gmail.com](mailto:rohittak006@gmail.com)
-- **Phone:** [+91-7568098052](tel:+917568098052)
 - **GitHub:** [https://github.com/RohitTak06](https://github.com/RohitTak06)
 - **LinkedIn:** [https://www.linkedin.com/in/rohit-tak-7150762b8/](https://www.linkedin.com/in/rohit-tak-7150762b8/)
 
