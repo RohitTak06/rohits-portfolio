@@ -5,6 +5,17 @@ let lastConnectionError = null;
 
 export const getLastConnectionError = () => lastConnectionError;
 
+const getDetailedError = (error) => {
+  if (error?.reason?.servers) {
+    const serverErrors = [];
+    for (const [server, desc] of error.reason.servers.entries()) {
+      serverErrors.push(`${server}: ${desc.error?.message || desc.type || 'unreachable'}`);
+    }
+    return serverErrors.join(' ; ');
+  }
+  return error?.message || String(error);
+};
+
 const getConnectionErrorCategory = (error) => {
   const causes = [error, error?.cause, error?.reason?.cause];
   const codes = causes.map((cause) => cause?.code);
@@ -86,7 +97,7 @@ export const connectDB = (customUri) => {
           // Fall through to logging the original error
         }
       }
-      lastConnectionError = error?.message || 'Connection attempt failed';
+      lastConnectionError = getDetailedError(error);
       logConnectionError('Connection attempt failed', error);
       return null;
     })
