@@ -1,13 +1,5 @@
 import mongoose from 'mongoose';
 
-import dns from 'dns';
-
-try {
-  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
-} catch {
-  // Ignore if restricted
-}
-
 let connectionAttempt;
 let lastConnectionError = null;
 
@@ -70,15 +62,29 @@ export const connectDB = (customUri) => {
     .connect(uri, {
       serverSelectionTimeoutMS: 10000,
     })
-    .then((conn) => {
-      lastConnectionError = null;
-      console.log('[Database] MongoDB connection established.');
-      return conn;
-    })
-    .catch((error) => {
+    .catch(async (error) => {
+      // Fallback: If SRV lookup fails in cloud containers, fallback to direct replica set hosts
+      if (uri.includes('@cluster0.6wqfhls.mongodb.net')) {
+        const directUri = uri.replace(
+          /mongodb\+srv:\/\/([^@]+)@cluster0\.6wqfhls\.mongodb\.net\/?([^?]*)(.*)/,
+          'mongodb://$1@ac-ai52zis-shard-00-00.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-01.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-02.6wqfhls.mongodb.net:27017/$2?ssl=true&replicaSet=atlas-14d8hr-shard-0&authSource=admin$3'
+        );
+        try {
+          return await mongoose.connect(directUri, { serverSelectionTimeoutMS: 10000 });
+        } catch {
+          // Fall through to logging the original error
+        }
+      }
       lastConnectionError = error?.message || 'Connection attempt failed';
       logConnectionError('Connection attempt failed', error);
       return null;
+    })
+    .then((conn) => {
+      if (conn) {
+        lastConnectionError = null;
+        console.log('[Database] MongoDB connection established.');
+      }
+      return conn;
     })
     .finally(() => {
       connectionAttempt = undefined;
