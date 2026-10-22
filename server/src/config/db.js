@@ -69,6 +69,14 @@ export const connectDB = (customUri) => {
     return Promise.resolve(null);
   }
 
+  // Atlas M0 requires SRV URI for TLS SNI routing
+  if (uri.includes('ac-ai52zis-shard-00-00.6wqfhls.mongodb.net')) {
+    const match = uri.match(/mongodb:\/\/([^@]+)@[^\/]+\/([^?]*)/);
+    if (match) {
+      uri = `mongodb+srv://${match[1]}@cluster0.6wqfhls.mongodb.net/${match[2] || 'rohit_portfolio'}?retryWrites=true&w=majority`;
+    }
+  }
+
   connectionAttempt = mongoose
     .connect(uri, {
       serverSelectionTimeoutMS: 10000,
