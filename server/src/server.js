@@ -3,10 +3,8 @@ import { connectDB, closeDB } from './config/db.js';
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB
-connectDB().catch((err) => {
-  console.error('[Server] Initial MongoDB connection attempt caught error:', err.message);
-});
+// Start the connection early; database-backed requests await it through ensureDBConnected.
+connectDB();
 
 const server = app.listen(PORT, () => {
   console.log(`[Server] Portfolio backend running on http://localhost:${PORT}`);

@@ -2,7 +2,7 @@ import express from 'express';
 import { submitContactMessage } from '../controllers/contactController.js';
 import { downloadResumePdf, downloadResumeDocx } from '../controllers/resumeController.js';
 import { contactFormLimiter } from '../middleware/rateLimiter.js';
-import { isDatabaseConnected } from '../config/db.js';
+import { ensureDBConnected } from '../config/db.js';
 
 const router = express.Router();
 
@@ -10,11 +10,12 @@ const router = express.Router();
  * Health check endpoint.
  * @route GET /api/health
  */
-router.get('/health', (req, res) => {
-  const dbStatus = isDatabaseConnected() ? 'connected' : 'disconnected';
-  res.status(200).json({
-    success: true,
-    status: 'healthy',
+router.get('/health', async (req, res) => {
+  const databaseConnected = Boolean(await ensureDBConnected());
+  const dbStatus = databaseConnected ? 'connected' : 'disconnected';
+  res.status(databaseConnected ? 200 : 503).json({
+    success: databaseConnected,
+    status: databaseConnected ? 'healthy' : 'degraded',
     timestamp: new Date().toISOString(),
     uptime: Math.floor(process.uptime()),
     services: {

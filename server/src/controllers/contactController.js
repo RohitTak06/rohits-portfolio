@@ -1,6 +1,6 @@
 import { ContactMessage } from '../models/ContactMessage.js';
 import { validateContactInput } from '../validators/contactValidator.js';
-import { isDatabaseConnected } from '../config/db.js';
+import { ensureDBConnected } from '../config/db.js';
 
 /**
  * Handle new contact message submission.
@@ -26,8 +26,8 @@ export const submitContactMessage = async (req, res, next) => {
       });
     }
 
-    // Check if database is connected
-    if (!isDatabaseConnected()) {
+    // Wait for the database connection before attempting persistence.
+    if (!(await ensureDBConnected())) {
       console.warn('[Contact] Submission attempted while MongoDB is disconnected.');
       return res.status(503).json({
         success: false,

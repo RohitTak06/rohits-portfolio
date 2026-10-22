@@ -41,6 +41,102 @@ describe('Rohit Tak Portfolio API Test Suite', () => {
       assert.strictEqual(res.body.services.database, 'connected');
       assert.ok(typeof res.body.uptime === 'number');
     });
+
+    it('should report degraded status when MongoDB is disconnected', async () => {
+      const originalNodeEnv = process.env.NODE_ENV;
+      const originalMongoUri = process.env.MONGODB_URI;
+      await closeDB();
+      process.env.NODE_ENV = 'production';
+      delete process.env.MONGODB_URI;
+
+      try {
+        const res = await request(app).get('/api/health');
+
+        assert.strictEqual(res.status, 503);
+        assert.strictEqual(res.body.success, false);
+        assert.strictEqual(res.body.status, 'degraded');
+        assert.strictEqual(res.body.services.database, 'disconnected');
+      } finally {
+        if (originalNodeEnv === undefined) {
+          delete process.env.NODE_ENV;
+        } else {
+          process.env.NODE_ENV = originalNodeEnv;
+        }
+        if (originalMongoUri === undefined) {
+          delete process.env.MONGODB_URI;
+        } else {
+          process.env.MONGODB_URI = originalMongoUri;
+        }
+        await connectDB(mongoServer.getUri());
+      }
+    });
+
+    it('should wait for MongoDB to reconnect before reporting healthy', async () => {
+      const originalMongoUri = process.env.MONGODB_URI;
+      await closeDB();
+      process.env.MONGODB_URI = mongoServer.getUri();
+
+      try {
+        const res = await request(app).get('/api/health');
+
+        assert.strictEqual(res.status, 200);
+        assert.strictEqual(res.body.services.database, 'connected');
+      } finally {
+        if (originalMongoUri === undefined) {
+          delete process.env.MONGODB_URI;
+        } else {
+          process.env.MONGODB_URI = originalMongoUri;
+        }
+      }
+    });
+  });
+
+  describe('Database Configuration', () => {
+    it('should not fall back to localhost when production MONGODB_URI is missing', async () => {
+      const originalNodeEnv = process.env.NODE_ENV;
+      const originalMongoUri = process.env.MONGODB_URI;
+      process.env.NODE_ENV = 'production';
+      delete process.env.MONGODB_URI;
+
+      try {
+        const connection = await connectDB();
+        assert.strictEqual(connection, null);
+        assert.strictEqual(mongoose.connection.readyState, 1);
+      } finally {
+        if (originalNodeEnv === undefined) {
+          delete process.env.NODE_ENV;
+        } else {
+          process.env.NODE_ENV = originalNodeEnv;
+        }
+        if (originalMongoUri === undefined) {
+          delete process.env.MONGODB_URI;
+        } else {
+          process.env.MONGODB_URI = originalMongoUri;
+        }
+      }
+    });
+
+    it('should log only a sanitized category when MongoDB rejects a malformed URI', async () => {
+      const originalConnect = mongoose.connect;
+      const originalConsoleError = console.error;
+      const loggedMessages = [];
+      mongoose.connect = async () => {
+        const error = new Error('mongodb://user:private-secret@');
+        error.name = 'MongoParseError';
+        throw error;
+      };
+      console.error = (message) => loggedMessages.push(message);
+
+      try {
+        await connectDB('mongodb://user:private-secret@');
+      } finally {
+        mongoose.connect = originalConnect;
+        console.error = originalConsoleError;
+      }
+
+      assert.match(loggedMessages.join(' '), /category=configuration/);
+      assert.doesNotMatch(loggedMessages.join(' '), /private-secret|mongodb:\/\//i);
+    });
   });
 
   describe('Contact Endpoint: OPTIONS /api/contact', () => {
@@ -89,6 +185,38 @@ describe('Rohit Tak Portfolio API Test Suite', () => {
   });
 
   describe('Contact Endpoint: POST /api/contact', () => {
+    it('should return 503 with setup guidance when MongoDB is disconnected', async () => {
+      const originalNodeEnv = process.env.NODE_ENV;
+      const originalMongoUri = process.env.MONGODB_URI;
+      await closeDB();
+      process.env.NODE_ENV = 'production';
+      delete process.env.MONGODB_URI;
+
+      try {
+        const res = await request(app).post('/api/contact').send({
+          name: 'Alex Johnson',
+          email: 'alex.johnson@example.com',
+          message: 'Hello Rohit, I would like to discuss a project opportunity.',
+        });
+
+        assert.strictEqual(res.status, 503);
+        assert.strictEqual(res.body.success, false);
+        assert.match(res.body.message, /configure MONGODB_URI/i);
+      } finally {
+        if (originalNodeEnv === undefined) {
+          delete process.env.NODE_ENV;
+        } else {
+          process.env.NODE_ENV = originalNodeEnv;
+        }
+        if (originalMongoUri === undefined) {
+          delete process.env.MONGODB_URI;
+        } else {
+          process.env.MONGODB_URI = originalMongoUri;
+        }
+        await connectDB(mongoServer.getUri());
+      }
+    });
+
     it('should successfully validate, store submission in MongoDB, and return 201', async () => {
       const payload = {
         name: 'Alex Johnson',
