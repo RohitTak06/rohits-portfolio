@@ -46,7 +46,7 @@ export const connectDB = (customUri) => {
   }
 
   const configuredUri = customUri || process.env.MONGODB_URI?.trim();
-  const uri =
+  let uri =
     configuredUri ||
     (process.env.NODE_ENV === 'production'
       ? null
@@ -56,6 +56,17 @@ export const connectDB = (customUri) => {
     lastConnectionError = 'MONGODB_URI is missing or empty in environment variables';
     console.error('[Database Error] Connection unavailable (category=configuration; reason=MONGODB_URI_missing).');
     return Promise.resolve(null);
+  }
+
+  // Serverless optimization: Convert SRV to direct replica set hosts to bypass cloud DNS SRV timeout issues
+  if (uri.includes('@cluster0.6wqfhls.mongodb.net')) {
+    uri = uri.replace(
+      /mongodb\+srv:\/\/([^@]+)@cluster0\.6wqfhls\.mongodb\.net\/?([^?]*)(\??.*)/,
+      (_, auth, db, query) => {
+        const cleanQuery = query ? '&' + query.replace(/^\?/, '') : '';
+        return `mongodb://${auth}@ac-ai52zis-shard-00-00.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-01.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-02.6wqfhls.mongodb.net:27017/${db || 'rohit_portfolio'}?ssl=true&replicaSet=atlas-14d8hr-shard-0&authSource=admin${cleanQuery}`;
+      }
+    );
   }
 
   connectionAttempt = mongoose
