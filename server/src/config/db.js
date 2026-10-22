@@ -69,34 +69,11 @@ export const connectDB = (customUri) => {
     return Promise.resolve(null);
   }
 
-  // Serverless optimization: Convert SRV to direct replica set hosts to bypass cloud DNS SRV timeout issues
-  if (uri.includes('@cluster0.6wqfhls.mongodb.net')) {
-    uri = uri.replace(
-      /mongodb\+srv:\/\/([^@]+)@cluster0\.6wqfhls\.mongodb\.net\/?([^?]*)(\??.*)/,
-      (_, auth, db, query) => {
-        const cleanQuery = query ? '&' + query.replace(/^\?/, '') : '';
-        return `mongodb://${auth}@ac-ai52zis-shard-00-00.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-01.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-02.6wqfhls.mongodb.net:27017/${db || 'rohit_portfolio'}?ssl=true&replicaSet=atlas-14d8hr-shard-0&authSource=admin${cleanQuery}`;
-      }
-    );
-  }
-
   connectionAttempt = mongoose
     .connect(uri, {
       serverSelectionTimeoutMS: 10000,
     })
-    .catch(async (error) => {
-      // Fallback: If SRV lookup fails in cloud containers, fallback to direct replica set hosts
-      if (uri.includes('@cluster0.6wqfhls.mongodb.net')) {
-        const directUri = uri.replace(
-          /mongodb\+srv:\/\/([^@]+)@cluster0\.6wqfhls\.mongodb\.net\/?([^?]*)(.*)/,
-          'mongodb://$1@ac-ai52zis-shard-00-00.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-01.6wqfhls.mongodb.net:27017,ac-ai52zis-shard-00-02.6wqfhls.mongodb.net:27017/$2?ssl=true&replicaSet=atlas-14d8hr-shard-0&authSource=admin$3'
-        );
-        try {
-          return await mongoose.connect(directUri, { serverSelectionTimeoutMS: 10000 });
-        } catch {
-          // Fall through to logging the original error
-        }
-      }
+    .catch((error) => {
       lastConnectionError = getDetailedError(error);
       logConnectionError('Connection attempt failed', error);
       return null;
