@@ -13,7 +13,9 @@ const router = express.Router();
 router.get('/health', async (req, res) => {
   const databaseConnected = Boolean(await ensureDBConnected());
   const dbStatus = databaseConnected ? 'connected' : 'disconnected';
-  res.status(databaseConnected ? 200 : 503).json({
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  const responsePayload = {
     success: databaseConnected,
     status: databaseConnected ? 'healthy' : 'degraded',
     timestamp: new Date().toISOString(),
@@ -22,15 +24,18 @@ router.get('/health', async (req, res) => {
       api: 'operational',
       database: dbStatus,
     },
-    diagnostic: {
-      hasMongoUri: Boolean(process.env.MONGODB_URI?.trim()),
-      configuredHost: process.env.MONGODB_URI
-        ? process.env.MONGODB_URI.replace(/:\/\/([^:]+):([^@]+)@/, '://$1:***@').split('?')[0]
-        : null,
-      error: databaseConnected ? null : getLastConnectionError(),
-    },
     version: '1.0.0',
-  });
+  };
+
+  // Only expose sanitized diagnostic information in non-production environments
+  if (!isProduction) {
+    responsePayload.diagnostic = {
+      hasMongoUri: Boolean(process.env.MONGODB_URI?.trim()),
+      error: databaseConnected ? null : getLastConnectionError(),
+    };
+  }
+
+  res.status(databaseConnected ? 200 : 503).json(responsePayload);
 });
 
 /**

@@ -57,7 +57,7 @@ export const connectDB = (customUri) => {
   }
 
   const configuredUri = customUri || process.env.MONGODB_URI?.trim();
-  let uri =
+  const uri =
     configuredUri ||
     (process.env.NODE_ENV === 'production'
       ? null
@@ -67,14 +67,6 @@ export const connectDB = (customUri) => {
     lastConnectionError = 'MONGODB_URI is missing or empty in environment variables';
     console.error('[Database Error] Connection unavailable (category=configuration; reason=MONGODB_URI_missing).');
     return Promise.resolve(null);
-  }
-
-  // Atlas M0 requires SRV URI for TLS SNI routing
-  if (uri.includes('ac-ai52zis-shard-00-00.6wqfhls.mongodb.net')) {
-    const match = uri.match(/mongodb:\/\/([^@]+)@[^\/]+\/([^?]*)/);
-    if (match) {
-      uri = `mongodb+srv://${match[1]}@cluster0.6wqfhls.mongodb.net/${match[2] || 'rohit_portfolio'}?retryWrites=true&w=majority`;
-    }
   }
 
   connectionAttempt = mongoose
@@ -126,6 +118,7 @@ export const ensureDBConnected = async () => {
 };
 
 export const closeDB = async () => {
+  connectionAttempt = undefined;
   if (mongoose.connection.readyState !== 0) {
     await mongoose.connection.close();
     console.log('[Database] Connection closed.');
