@@ -1,6 +1,17 @@
 import mongoose from 'mongoose';
 
+import dns from 'dns';
+
+try {
+  dns.setServers(['8.8.8.8', '8.8.4.4', '1.1.1.1']);
+} catch {
+  // Ignore if restricted
+}
+
 let connectionAttempt;
+let lastConnectionError = null;
+
+export const getLastConnectionError = () => lastConnectionError;
 
 const getConnectionErrorCategory = (error) => {
   const causes = [error, error?.cause, error?.reason?.cause];
@@ -50,19 +61,22 @@ export const connectDB = (customUri) => {
       : 'mongodb://127.0.0.1:27017/rohit_portfolio');
 
   if (!uri) {
+    lastConnectionError = 'MONGODB_URI is missing or empty in environment variables';
     console.error('[Database Error] Connection unavailable (category=configuration; reason=MONGODB_URI_missing).');
     return Promise.resolve(null);
   }
 
   connectionAttempt = mongoose
     .connect(uri, {
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000,
     })
     .then((conn) => {
+      lastConnectionError = null;
       console.log('[Database] MongoDB connection established.');
       return conn;
     })
     .catch((error) => {
+      lastConnectionError = error?.message || 'Connection attempt failed';
       logConnectionError('Connection attempt failed', error);
       return null;
     })

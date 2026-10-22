@@ -2,7 +2,7 @@ import express from 'express';
 import { submitContactMessage } from '../controllers/contactController.js';
 import { downloadResumePdf, downloadResumeDocx } from '../controllers/resumeController.js';
 import { contactFormLimiter } from '../middleware/rateLimiter.js';
-import { ensureDBConnected } from '../config/db.js';
+import { ensureDBConnected, getLastConnectionError } from '../config/db.js';
 
 const router = express.Router();
 
@@ -21,6 +21,10 @@ router.get('/health', async (req, res) => {
     services: {
       api: 'operational',
       database: dbStatus,
+    },
+    diagnostic: {
+      hasMongoUri: Boolean(process.env.MONGODB_URI?.trim()),
+      error: databaseConnected ? null : getLastConnectionError(),
     },
     version: '1.0.0',
   });
