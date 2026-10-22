@@ -24,6 +24,9 @@ router.get('/health', async (req, res) => {
     },
     diagnostic: {
       hasMongoUri: Boolean(process.env.MONGODB_URI?.trim()),
+      configuredHost: process.env.MONGODB_URI
+        ? process.env.MONGODB_URI.replace(/:\/\/([^:]+):([^@]+)@/, '://$1:***@').split('?')[0]
+        : null,
       error: databaseConnected ? null : getLastConnectionError(),
     },
     version: '1.0.0',
