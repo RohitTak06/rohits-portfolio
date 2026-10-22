@@ -311,7 +311,21 @@ npm run build
    - `VITE_API_BASE_URL` = `https://your-backend-api.onrender.com/api`
 6. Deploy!
 
-### Backend Deployment (Render)
+### Backend Deployment (Option 1: Vercel Serverless)
+1. In your [Vercel](https://vercel.com/) dashboard, click **Add New...** ➔ **Project**.
+2. Import the `rohits-portfolio` repository.
+3. In **Project Configuration**:
+   - Set **Project Name** (e.g. `rohit-portfolio-backend`).
+   - Set **Root Directory** to `server`.
+4. Add **Environment Variables**:
+   - `NODE_ENV` = `production`
+   - `MONGODB_URI` = `mongodb+srv://<username>:<password>@cluster0.mongodb.net/rohit_portfolio?retryWrites=true&w=majority`
+   - `CLIENT_URL` = your Vercel frontend URL (e.g. `https://rohits-portfolio-tyg3.vercel.app`)
+5. Deploy!
+6. Note your backend URL (e.g. `https://rohit-portfolio-backend.vercel.app`).
+7. In your **Frontend Vercel project** (`rohits-portfolio-tyg3`), set `VITE_API_BASE_URL` to `https://rohit-portfolio-backend.vercel.app/api` and redeploy.
+
+### Backend Deployment (Option 2: Render)
 1. In your [Render](https://render.com/) dashboard, create a new **Web Service**.
 2. Connect this repository and set **Root Directory** to `server`.
 3. Set **Build Command** to `npm install && node scripts/generate-resumes.js`.
@@ -320,8 +334,12 @@ npm run build
    - `NODE_ENV` = `production`
    - `PORT` = `5000`
    - `MONGODB_URI` = `mongodb+srv://<username>:<password>@cluster0.mongodb.net/rohit_portfolio?retryWrites=true&w=majority`
-   - `CLIENT_URL` = `https://your-portfolio.vercel.app`
+   - `CLIENT_URL` = your exact Vercel frontend origin, without a trailing slash
 6. Deploy!
+7. Set `VITE_API_BASE_URL` in the Vercel **frontend** project to the backend's public URL ending in `/api`, then redeploy the frontend.
+8. Verify `GET <backend-url>/api/health` returns HTTP 200 and `services.database` is `connected` before testing contact submissions.
+
+`MONGODB_URI` must be set on the backend deployment that serves `/api`; a missing value is not replaced with localhost in production. If the health endpoint returns HTTP 503 with `database: disconnected`, confirm the backend's MongoDB Atlas URI, database network access, and credentials in that hosting provider's private environment settings. Do not put database credentials in frontend environment variables or commit them to the repository.
 
 ---
 
